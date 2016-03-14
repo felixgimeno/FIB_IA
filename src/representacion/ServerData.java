@@ -2,11 +2,11 @@ package representacion;
 
 import java.util.ArrayList;
 
-public class State_1 {
+public class ServerData {
     private int ns;
     private ArrayList<ArrayList<Integer>> servers;
 
-    public State_1(int s) {
+    public ServerData(int s) {
         ns = s;
         servers = new ArrayList<>(s);
     }
