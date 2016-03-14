@@ -1,9 +1,11 @@
 package representacion;
 
 import java.util.ArrayList;
+import IA.DistFS.Servers;
 
 public class ServerData {
     private int ns;
+
     private ArrayList<ArrayList<Integer>> servers;
 
     public ServerData(int s) {
