@@ -1,44 +1,74 @@
 package representacion;
 
 import java.util.ArrayList;
+
+import IA.DistFS.Requests;
 import IA.DistFS.Servers;
 
 public class ServerData {
-    private int ns;
+    private static int nserv;
+    private static int nrep;
+    private static int sseed;
+    private static int nusers;
+    private static int nreq;
+    private static int rseed;
+    private static Servers sdata;
+    private static Requests rdata;
+    private ArrayList<ArrayList<Integer>> state;
 
-    private ArrayList<ArrayList<Integer>> servers;
-
-    public ServerData(int s) {
-        ns = s;
-        servers = new ArrayList<>(s);
+    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2) {
+        try {
+            nserv = ns;
+            nrep = nr;
+            sseed = s1;
+            nusers = nu;
+            nreq = nrq;
+            rseed = s2;
+            sdata = new Servers(ns, nr, s1);
+            rdata = new Requests(nu, nrq, s2);
+            state = new ArrayList<>(ns);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //Operators
 
     public void addRequest(int server_id, int req) {
-        servers.get(server_id).add(req);
+        state.get(server_id).add(req);
     }
 
     public void moveRequest(int server1, int server2, int req) {
-        int n = servers.get(server1).indexOf(req);
-        servers.get(server1).remove(n);
-        servers.get(server2).add(req);
+        int n = state.get(server1).indexOf(req);
+        state.get(server1).remove(n);
+        state.get(server2).add(req);
     }
 
     public void swapRequest(int server1, int r1, int server2, int r2) {
-        int i = servers.get(server1).indexOf(r1);
-        int j = servers.get(server2).indexOf(r2);
-        servers.get(server1).remove(i);
-        servers.get(server2).remove(j);
-        servers.get(server1).add(i,r2);
-        servers.get(server2).add(j,r1);
+        int i = state.get(server1).indexOf(r1);
+        int j = state.get(server2).indexOf(r2);
+        state.get(server1).remove(i);
+        state.get(server2).remove(j);
+        state.get(server1).add(i,r2);
+        state.get(server2).add(j,r1);
     }
 
     //Getters
 
-    public int getNs() { return ns; }
+    public int getNservers() { return nserv; }
+
+    public int getNrep() { return nrep; }
+
+    public int getSseed() { return sseed; }
+
+    public int getNusers() { return nusers; }
+
+    public int getNreq() { return nreq; }
+
+    public int getRseed() { return rseed; }
 
     public ArrayList<Integer> getAllRequests(int server_id) {
-        return servers.get(server_id);
+        return state.get(server_id);
     }
 }
