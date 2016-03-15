@@ -26,7 +26,7 @@ public class ServerData2 {
             rseed = s2;
             sdata = new Servers(ns, nr, s1);
             rdata = new Requests(nu, nrq, s2);
-            state = new ArrayList<>(nu*nrq);
+            state = new ArrayList<>(rdata.size());
         }
         catch (Exception e) {
             e.printStackTrace();
