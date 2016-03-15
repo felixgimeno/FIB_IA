@@ -68,7 +68,11 @@ public class ServerData {
 
     public int getRseed() { return rseed; }
 
-    public ArrayList<Integer> getAllRequests(int server_id) {
+    public Servers getSdata() { return sdata; }
+
+    public Requests getRdata() { return rdata; }
+
+    public ArrayList<Integer> getRequests(int server_id) {
         return state.get(server_id);
     }
 }
