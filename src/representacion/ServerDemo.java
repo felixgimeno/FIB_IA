@@ -27,7 +27,7 @@ public class ServerDemo {
                     new ServerSuccessorFunction(),
                     new ServerGoalTest()
             );
-            Search search = new DepthLimitedSearch(9);
+            Search search = new DepthLimitedSearch(3);
             SearchAgent agent = new SearchAgent(problem, search);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
