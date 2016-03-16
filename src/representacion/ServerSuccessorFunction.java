@@ -22,7 +22,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
             for (Integer j = 0; j < data.getNservers(); j +=1 ){
                 if (!Objects.equals(j, i)){
                     for (Integer k : (ArrayList<Integer>)data.getRequests(i).clone()){
-                        if (!data.applyMove(i, j, k)) continue;
+                        if (!data.isPossibleMove(i, j, k)) continue;
                         ServerData dataNew = new ServerData(data);
                         dataNew.moveRequest(i, j, k);
                         list.add(new Successor(String.format("move i %d j %d k %d",i,j,k), data));
