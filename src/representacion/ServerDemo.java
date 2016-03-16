@@ -25,9 +25,11 @@ public class ServerDemo {
             Problem problem = new Problem(
                     new ServerData(3, 1, 1111, 10, 1, 1111),
                     new ServerSuccessorFunction(),
-                    new ServerGoalTest()
+                    new ServerGoalTest(),
+                    new ServerHeuristicFunction()
             );
-            Search search = new DepthLimitedSearch(3);
+            //Search search = new DepthLimitedSearch(3);
+            Search search = new GreedyBestFirstSearch(new GraphSearch());
             SearchAgent agent = new SearchAgent(problem, search);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
