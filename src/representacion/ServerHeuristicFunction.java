@@ -1,6 +1,7 @@
 package representacion;
 
 import aima.search.framework.HeuristicFunction;
+import java.util.Optional;
 
 /**
  * Created by josep on 3/14/16.
@@ -8,7 +9,7 @@ import aima.search.framework.HeuristicFunction;
 public class ServerHeuristicFunction implements HeuristicFunction {
     public double getHeuristicValue(Object state) {
         ServerData data = (ServerData) state;
-        //Do shit
-        return 0.0;
+        //criterio calidad 1a
+        return (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
     }
 }
