@@ -18,12 +18,13 @@ public class ServerSuccessorFunction implements SuccessorFunction {
         List<Successor> list = new ArrayList<> ();
         list.add(new Successor("Exactly nothing", data));
         for (Integer i = 0; i < data.getNservers(); i +=1 ){
+            if (data.getRequests(i).isEmpty()) continue;
             for (Integer j = 0; j < data.getNservers(); j +=1 ){
                 if (!Objects.equals(j, i)){
-                    for (Integer k : data.getRequests(i)){
+                    for (Integer k : (ArrayList<Integer>)data.getRequests(i).clone()){
                         ServerData dataNew = new ServerData(data);
                         dataNew.moveRequest(i, j, k);
-                        list.add(new Successor("move i {} j {} k {}".format(i.toString(),j.toString(),k.toString()), data));
+                        list.add(new Successor(String.format("move i {} j {} k {}",i.toString(),j.toString(),k.toString()), data));
                     }
                 }
             }    
