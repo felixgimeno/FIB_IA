@@ -66,7 +66,7 @@ public class ServerData {
             sdata.fileLocations(rdata.getRequest(req)[1]).contains(server2);
     }
     public void moveRequest(int server1, int server2, int req) {
-        System.out.println(String.format("server1 %d server %d req %d",server1,server2,req));
+        //System.out.println(String.format("server1 %d server %d req %d",server1,server2,req));
         int n = state.get(server1).indexOf(req);
         state.get(server1).remove(n);
         state.get(server2).add(req);
