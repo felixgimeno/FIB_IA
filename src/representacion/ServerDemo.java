@@ -1,22 +1,20 @@
 package representacion;
 
-import aima.search.framework.GraphSearch;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.*;
-import aima.search.uninformed.DepthLimitedSearch;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 /**
  * copipasteado de private static void eightPuzzleDLSDemo() ...
- * 
+ *
  * Since 2016_03_16
  *
- * @author felix.axel.gimeno 
- * 
+ * @author felix.axel.gimeno
+ *
  */
 public class ServerDemo {
 
@@ -35,9 +33,9 @@ public class ServerDemo {
             SearchAgent agent = new SearchAgent(problem, search);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
-            ServerData goal = (ServerData)search.getGoalState();
-            System.out.println(goal.getQuality()); 
-            System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));         
+            ServerData goal = (ServerData) search.getGoalState();
+            System.out.println(goal.getQuality());
+            System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));
         } catch (Exception e) {
             e.printStackTrace();
         }
