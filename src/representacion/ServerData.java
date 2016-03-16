@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import IA.DistFS.Requests;
 import IA.DistFS.Servers;
+import java.util.Set;
 
 public class ServerData {
 
@@ -27,12 +28,23 @@ public class ServerData {
             rseed = s2;
             sdata = new Servers(ns, nr, s1);
             rdata = new Requests(nu, nrq, s2);
-            state = new ArrayList<>(ns);
+            state = new ArrayList<>();
+            for (Integer i = 0; i < ns; i +=1){
+                state.add(new ArrayList<>() );
+            }
+            this.init();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    private void init(){
+        for (int i = 0; i < rdata.size();  i+=1){
+            final int fileid = rdata.getRequest(i)[1];
+            final Set<Integer> s = sdata.fileLocations(fileid);
+            final int server_dest_id = s.iterator().next();
+            this.addRequest(server_dest_id,i);
+        }
+    }
     public ServerData(ServerData old) {
         nserv = old.nserv;
         nrep = old.nrep;
