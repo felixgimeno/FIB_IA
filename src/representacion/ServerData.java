@@ -61,7 +61,7 @@ public class ServerData {
     public void addRequest(int server_id, int req) {
         state.get(server_id).add(req);
     }
-    public boolean applyMove(int server1, int server2, int req){
+    public boolean isPossibleMove(int server1, int server2, int req){
         return state.get(server1).contains(req) &&
             sdata.fileLocations(rdata.getRequest(req)[1]).contains(server2);
     }
