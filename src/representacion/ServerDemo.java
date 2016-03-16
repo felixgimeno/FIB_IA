@@ -26,7 +26,7 @@ public class ServerDemo {
                     new ServerData(3, 1, 1111, 10, 1, 1111),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest(),
-                    new ServerHeuristicFunction()
+                    new ServerHeuristicFunction(1)
             );
             //Search search = new DepthLimitedSearch(3);
             Search search = new GreedyBestFirstSearch(new GraphSearch());
