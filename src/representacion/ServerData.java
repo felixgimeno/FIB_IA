@@ -6,6 +6,7 @@ import IA.DistFS.Requests;
 import IA.DistFS.Servers;
 
 public class ServerData {
+
     private static int nserv;
     private static int nrep;
     private static int sseed;
@@ -27,12 +28,22 @@ public class ServerData {
             sdata = new Servers(ns, nr, s1);
             rdata = new Requests(nu, nrq, s2);
             state = new ArrayList<>(ns);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public ServerData(ServerData old) {
+        nserv = old.nserv;
+        nrep = old.nrep;
+        sseed = old.sseed;
+        nusers = old.nusers;
+        nreq = old.nreq;
+        rseed = old.rseed;
+        sdata = old.sdata;
+        rdata = old.rdata;
+        state = (ArrayList<ArrayList<Integer>>) old.state.clone();
+    }
     //Operators
 
     public void addRequest(int server_id, int req) {
@@ -50,27 +61,42 @@ public class ServerData {
         int j = state.get(server2).indexOf(r2);
         state.get(server1).remove(i);
         state.get(server2).remove(j);
-        state.get(server1).add(i,r2);
-        state.get(server2).add(j,r1);
+        state.get(server1).add(i, r2);
+        state.get(server2).add(j, r1);
     }
 
     //Getters
+    public int getNservers() {
+        return nserv;
+    }
 
-    public int getNservers() { return nserv; }
+    public int getNrep() {
+        return nrep;
+    }
 
-    public int getNrep() { return nrep; }
+    public int getSseed() {
+        return sseed;
+    }
 
-    public int getSseed() { return sseed; }
+    public int getNusers() {
+        return nusers;
+    }
 
-    public int getNusers() { return nusers; }
+    public int getNreq() {
+        return nreq;
+    }
 
-    public int getNreq() { return nreq; }
+    public int getRseed() {
+        return rseed;
+    }
 
-    public int getRseed() { return rseed; }
+    public Servers getSdata() {
+        return sdata;
+    }
 
-    public Servers getSdata() { return sdata; }
-
-    public Requests getRdata() { return rdata; }
+    public Requests getRdata() {
+        return rdata;
+    }
 
     public ArrayList<Integer> getRequests(int server_id) {
         return state.get(server_id);
