@@ -23,7 +23,7 @@ public class ServerDemo {
     public static void main(String[] args) {
         try {
             Problem problem = new Problem(
-                    new ServerData(3, 1, 1111, 10, 1, 1111),
+                    new ServerData(11, 3, 1111, 10, 2, 1111),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(1)
