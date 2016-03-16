@@ -15,7 +15,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
     public List getSuccessors(Object state) {
         ServerData data = (ServerData) state;
         List list = new ArrayList<ServerData> ();
-        list.add(new Successor(null, data));
+        list.add(new Successor("Exactly nothing", data));
         //claramente mal, lo hago para probarlo
         return list;
     }
