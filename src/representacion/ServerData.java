@@ -117,4 +117,17 @@ public class ServerData {
     public ArrayList<Integer> getRequests(int server_id) {
         return state.get(server_id);
     }
+
+    /**
+     *
+     * @return arraylist del tiempo total de transmision de cada servidor
+     */
+    public ArrayList<Integer> getQuality(){
+        ArrayList<Integer> here = new ArrayList<> ();
+        for (Integer i = 0; i < this.nserv; i +=1){
+            final Integer serverid = i;
+            here.add(this.getRequests(serverid).stream().map((a) -> sdata.tranmissionTime(serverid, rdata.getRequest(a)[0])).reduce(0,(a,b)->a+b));
+        }
+        return here;
+    }
 }
