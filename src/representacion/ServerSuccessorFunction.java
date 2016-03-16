@@ -31,8 +31,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
             }    
         }
         assert(!list.isEmpty());
-        
-        //claramente mal, lo hago para probarlo
+
         return list;
     }
 }
