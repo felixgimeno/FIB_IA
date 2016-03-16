@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package representacion;
 
 import aima.search.framework.GraphSearch;
@@ -17,16 +12,19 @@ import java.util.Properties;
 
 /**
  * Since 2016_03_16
- * @author felix.axel.gimeno
- * copipasteado de private static void eightPuzzleDLSDemo() ...
+ *
+ * @author felix.axel.gimeno copipasteado de private static void
+ * eightPuzzleDLSDemo() ...
  */
 public class ServerDemo {
 
     public static void main(String[] args) {
         try {
-            Problem problem = new Problem(new ServerData(200,1,1,1,1,1),
+            Problem problem = new Problem(
+                    new ServerData(200, 1, 1, 1, 1, 1),
                     new ServerSuccessorFunction(),
-                    new ServerGoalTest());
+                    new ServerGoalTest()
+            );
             Search search = new DepthLimitedSearch(9);
             SearchAgent agent = new SearchAgent(problem, search);
             printActions(agent.getActions());
@@ -47,6 +45,8 @@ public class ServerDemo {
 
     private static void printActions(List actions) {
         actions.stream().map((action1) -> (String) action1).
-                forEach((action) -> {System.out.println(action);});
+                forEach((action) -> {
+                    System.out.println(action);
+                });
     }
 }
