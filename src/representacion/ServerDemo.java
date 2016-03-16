@@ -4,7 +4,7 @@ import aima.search.framework.GraphSearch;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
-import aima.search.informed.GreedyBestFirstSearch;
+import aima.search.informed.*;
 import aima.search.uninformed.DepthLimitedSearch;
 import java.util.Iterator;
 import java.util.List;
@@ -22,17 +22,22 @@ public class ServerDemo {
 
     public static void main(String[] args) {
         try {
+            final Integer heuristicCriteria = 1;
             Problem problem = new Problem(
-                    new ServerData(11, 3, 1111, 10, 2, 1111),
+                    new ServerData(11, 5, 11432342, 10, 11, 11433411),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest(),
-                    new ServerHeuristicFunction(1)
+                    new ServerHeuristicFunction(heuristicCriteria)
             );
             //Search search = new DepthLimitedSearch(3);
-            Search search = new GreedyBestFirstSearch(new GraphSearch());
+            //Search search = new GreedyBestFirstSearch(new GraphSearch());
+            Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
+            ServerData goal = (ServerData)search.getGoalState();
+            System.out.println(goal.getQuality()); 
+            System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));         
         } catch (Exception e) {
             e.printStackTrace();
         }
