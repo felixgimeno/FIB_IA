@@ -11,17 +11,19 @@ import java.util.List;
 import java.util.Properties;
 
 /**
+ * copipasteado de private static void eightPuzzleDLSDemo() ...
+ * 
  * Since 2016_03_16
  *
- * @author felix.axel.gimeno copipasteado de private static void
- * eightPuzzleDLSDemo() ...
+ * @author felix.axel.gimeno 
+ * 
  */
 public class ServerDemo {
 
     public static void main(String[] args) {
         try {
             Problem problem = new Problem(
-                    new ServerData(200, 1, 1, 1, 1, 1),
+                    new ServerData(3, 1, 1111, 10, 1, 1111),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest()
             );
