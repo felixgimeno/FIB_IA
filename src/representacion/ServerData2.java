@@ -3,7 +3,7 @@ import IA.DistFS.Requests;
 import IA.DistFS.Servers;
 import java.util.ArrayList;
 public class ServerData2 extends ServerData {
-    private ArrayList<Integer> myState; // funcion requestid a serverid
+    private final ArrayList<Integer> myState; // funcion requestid a serverid
     public ServerData2(int ns, int nr, int s1, int nu, int nrq, int s2) {
         super(ns,nr,s1,nu,nrq,s2);
         myState = new ArrayList<>(super.getRdata().size());
