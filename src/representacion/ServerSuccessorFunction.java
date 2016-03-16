@@ -2,6 +2,7 @@ package representacion;
 
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -10,9 +11,12 @@ import java.util.List;
  */
 public class ServerSuccessorFunction implements SuccessorFunction {
 
+    @Override
     public List getSuccessors(Object state) {
         ServerData data = (ServerData) state;
-        //Do shit
-        return null;
+        List list = new ArrayList<ServerData> ();
+        list.add(new Successor(null, data));
+        //claramente mal, lo hago para probarlo
+        return list;
     }
 }
