@@ -25,7 +25,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                         if (!data.isPossibleMove(i, j, k)) continue;
                         ServerData dataNew = new ServerData(data);
                         dataNew.moveRequest(i, j, k);
-                        list.add(new Successor(String.format("move i %d j %d k %d",i,j,k), data));
+                        list.add(new Successor(String.format("move i %d j %d k %d",i,j,k), dataNew));
                     }
                 }
             }    
