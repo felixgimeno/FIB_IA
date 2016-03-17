@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import IA.DistFS.Requests;
 import IA.DistFS.Servers;
+import java.util.Random;
 import java.util.Set;
 
 public class ServerData {
@@ -18,7 +19,7 @@ public class ServerData {
     private static Requests rdata;
     private ArrayList<ArrayList<Integer>> state;
 
-    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2) {
+    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2, int tipoGenInicial) {
         try {
             nserv = ns;
             nrep = nr;
@@ -32,16 +33,21 @@ public class ServerData {
             for (Integer i = 0; i < ns; i +=1){
                 state.add(new ArrayList<>() );
             }
-            this.init();
+            this.init(tipoGenInicial);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private void init(){
+    private void init(int tipoGenInicial){
         for (int i = 0; i < rdata.size();  i+=1){
             final int fileid = rdata.getRequest(i)[1];
             final Set<Integer> s = sdata.fileLocations(fileid);
-            final int server_dest_id = s.iterator().next();
+            int server_dest_id = s.iterator().next();
+            if (tipoGenInicial != 1) {
+                ArrayList<Integer> ss = new ArrayList();
+                ss.addAll(s);
+                server_dest_id = ss.get(new Random().nextInt(ss.size()));
+            }
             this.addRequest(server_dest_id,i);
         }
     }
