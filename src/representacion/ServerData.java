@@ -46,15 +46,7 @@ public class ServerData {
         }
     }
     public ServerData(ServerData old) {
-        nserv = old.nserv;
-        nrep = old.nrep;
-        sseed = old.sseed;
-        nusers = old.nusers;
-        nreq = old.nreq;
-        rseed = old.rseed;
-        sdata = old.sdata;
-        rdata = old.rdata;
-        state = (ArrayList<ArrayList<Integer>>) old.state.clone();
+        this.state = (ArrayList<ArrayList<Integer>>) old.state.clone();
     }
     //Operators
 
