@@ -46,7 +46,13 @@ public class ServerData {
         }
     }
     public ServerData(ServerData old) {
-        this.state = (ArrayList<ArrayList<Integer>>) old.state.clone();
+        this.state = new ArrayList<>();
+        for (Integer i = 0; i < nserv; i +=1){
+            this.state.add(new ArrayList<>());
+            for (int j = 0; j < old.state.get(i).size(); j += 1){
+                this.state.get(i).add(old.state.get(i).get(j));
+            } 
+        }
     }
     //Operators
 
