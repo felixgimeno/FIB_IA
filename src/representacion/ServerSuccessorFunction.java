@@ -21,7 +21,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
             if (data.getRequests(i).isEmpty()) continue;
             for (Integer j = 0; j < data.getNservers(); j +=1 ){
                 if (!Objects.equals(j, i)){
-                    for (Integer k : (ArrayList<Integer>)data.getRequests(i).clone()){
+                    for (Integer k : (ArrayList<Integer>)data.getRequests(i)){
                         if (!data.isPossibleMove(i, j, k)) continue;
                         ServerData dataNew = new ServerData(data);
                         dataNew.moveRequest(i, j, k);
@@ -31,7 +31,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
             }    
         }
         assert(!list.isEmpty());
-        System.out.println(list);
+        //System.out.println(list);
         return list;
     }
 }
