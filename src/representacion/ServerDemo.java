@@ -36,8 +36,10 @@ public class ServerDemo {
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
             ServerData goal = (ServerData) search.getGoalState();
-            System.out.println(goal.getQuality());
-            System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));
+            if (goal != null){
+                System.out.println(goal.getQuality());
+                System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
