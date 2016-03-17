@@ -22,8 +22,9 @@ public class ServerDemo {
     public static void main(String[] args) {
         try {
             final Integer heuristicCriteria = 1;
+            final int criterioGeneracionEstadosIniciales = 1; 
             Problem problem = new Problem(
-                    new ServerData(11, 5, 11432342, 10, 11, 11433411),
+                    new ServerData(11, 5, 11432342, 10, 11, 11433411,criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
