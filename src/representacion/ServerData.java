@@ -18,6 +18,7 @@ public class ServerData {
     private static Servers sdata;
     private static Requests rdata;
     private ArrayList<ArrayList<Integer>> state;
+    private ArrayList<Integer> quality;
 
     public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2, int tipoGenInicial) {
         try {
@@ -30,9 +31,12 @@ public class ServerData {
             sdata = new Servers(ns, nr, s1);
             rdata = new Requests(nu, nrq, s2);
             state = new ArrayList<>();
+            quality = new ArrayList<>(sdata.size());
             for (Integer i = 0; i < ns; i +=1){
                 state.add(new ArrayList<>() );
+                quality.add(i, 0);
             }
+            
             this.init(tipoGenInicial);
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,28 +56,34 @@ public class ServerData {
         }
     }
     public ServerData(ServerData old) {
+        this.quality = old.quality;
         this.state = new ArrayList<>();
-        for (Integer i = 0; i < nserv; i +=1){
+        this.state.ensureCapacity(sdata.size());
+        for (Integer i = 0; i < old.state.size(); i +=1){
             this.state.add(new ArrayList<>());
-            for (int j = 0; j < old.state.get(i).size(); j += 1){
-                this.state.get(i).add(old.state.get(i).get(j));
-            } 
+            this.state.get(i).ensureCapacity(rdata.size());
+            for (int req : old.state.get(i)){
+                this.state.get(i).add(req);
+            }
         }
     }
     //Operators
 
     public void addRequest(int server_id, int req) {
         state.get(server_id).add(req);
+        quality.set(server_id, sdata.tranmissionTime(server_id, rdata.getRequest(req)[0]) + quality.get(server_id));
     }
     public boolean isPossibleMove(int server1, int server2, int req){
-        return state.get(server1).contains(req) &&
-            sdata.fileLocations(rdata.getRequest(req)[1]).contains(server2);
+        return server1 != server2 && 
+                state.get(server1).contains(req) &&
+                sdata.fileLocations(rdata.getRequest(req)[1]).contains(server2);
     }
     public void moveRequest(int server1, int server2, int req) {
-        //System.out.println(String.format("server1 %d server %d req %d",server1,server2,req));
         int n = state.get(server1).indexOf(req);
         state.get(server1).remove(n);
+        quality.set(server1, -sdata.tranmissionTime(server1, rdata.getRequest(req)[0]) + quality.get(server1));
         state.get(server2).add(req);
+        quality.set(server2, +sdata.tranmissionTime(server2, rdata.getRequest(req)[0]) + quality.get(server2));
     }
 
     public void swapRequest(int server1, int r1, int server2, int r2) {
@@ -127,11 +137,17 @@ public class ServerData {
      * @return arraylist del tiempo total de transmision de cada servidor
      */
     public ArrayList<Integer> getQuality(){
+        // return quality; //doesn't work yet
+        
         ArrayList<Integer> here = new ArrayList<> ();
         for (Integer i = 0; i < this.nserv; i +=1){
             final Integer serverid = i;
             here.add(this.getRequests(serverid).stream().map((a) -> sdata.tranmissionTime(serverid, rdata.getRequest(a)[0])).reduce(0,(a,b)->a+b));
         }
         return here;
+    }
+    @Override
+    public String toString(){
+        return state.toString();
     }
 }
