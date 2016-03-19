@@ -21,17 +21,30 @@ public class ServerDemo {
 
     public static void main(String[] args) {
         try {
+            boolean saORhc = true;
             final Integer heuristicCriteria = 1;
             final int criterioGeneracionEstadosIniciales = 1; 
-            Problem problem = new Problem(
+            Problem problem;
+            Search search;
+
+            if (saORhc){
+                problem = new Problem(
                     new ServerData(11, 5, 11432342, 10, 11, 11433411,criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
-            );
-            //Search search = new DepthLimitedSearch(3);
-            //Search search = new GreedyBestFirstSearch(new GraphSearch());
-            Search search = new HillClimbingSearch();
+                );
+                search = new HillClimbingSearch();
+            } else {
+                problem = new Problem(
+                    new ServerData(11, 5, 11432342, 10, 11, 11433411,criterioGeneracionEstadosIniciales),
+                    new ServerSuccessorFunctionR(),
+                    new ServerGoalTest(),
+                    new ServerHeuristicFunction(heuristicCriteria)
+                );               
+                search = new SimulatedAnnealingSearch();
+            }
+ 
             SearchAgent agent = new SearchAgent(problem, search);
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
@@ -55,7 +68,7 @@ public class ServerDemo {
     }
 
     private static void printActions(List actions) {
-        actions.stream().map((action1) -> (String) action1).
+        actions.stream().map((action1) -> action1.toString()).
                 forEach((action) -> {
                     System.out.println(action);
                 });
