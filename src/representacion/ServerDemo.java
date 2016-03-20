@@ -22,7 +22,7 @@ public class ServerDemo {
     public static void main(String[] args) {
         try {
             boolean saORhc = true;
-            final Integer heuristicCriteria = 1;
+            final Integer heuristicCriteria = 5;
             final int criterioGeneracionEstadosIniciales = 1; 
             Problem problem;
             Search search;
