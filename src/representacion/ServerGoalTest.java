@@ -13,6 +13,3 @@ public class ServerGoalTest implements GoalTest {
     }
 }
 
-/**
-*Probando , Probanado 1 , 2 , 3 4... 
-*/
