@@ -137,7 +137,7 @@ public class ServerData {
      * @return arraylist del tiempo total de transmision de cada servidor
      */
     public ArrayList<Integer> getQuality(){
-        // return quality; //doesn't work yet
+        // return quality;
         
         ArrayList<Integer> here = new ArrayList<> ();
         for (Integer i = 0; i < this.nserv; i +=1){
