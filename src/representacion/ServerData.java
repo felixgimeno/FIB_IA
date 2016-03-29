@@ -97,9 +97,13 @@ public class ServerData {
         int i = state.get(server1).indexOf(r1);
         int j = state.get(server2).indexOf(r2);
         state.get(server1).remove(i);
+        quality.set(server1, -sdata.tranmissionTime(server1, rdata.getRequest(r1)[0]) + quality.get(server1));
         state.get(server2).remove(j);
+        quality.set(server2, -sdata.tranmissionTime(server2, rdata.getRequest(r2)[0]) + quality.get(server2));
         state.get(server1).add(i, r2);
+        quality.set(server1, +sdata.tranmissionTime(server1, rdata.getRequest(r2)[0]) + quality.get(server1));
         state.get(server2).add(j, r1);
+        quality.set(server2, +sdata.tranmissionTime(server2, rdata.getRequest(r1)[0]) + quality.get(server2));
     }
 
     //Getters
