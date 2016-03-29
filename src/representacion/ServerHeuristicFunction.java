@@ -47,8 +47,11 @@ public class ServerHeuristicFunction implements HeuristicFunction {
         if (5 == selection) {
             //Valor del estado: tiempo maximo mas el sumatorio de las diferencias de tiempos de servidor respecto a la media
             double n = (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
-            double sum = data.getQuality().stream().mapToDouble((a)->a).reduce(0,(a,b)->a+b);
-            sum = Math.abs(sum - avg*data.getNservers());
+            ArrayList<Integer> q = (ArrayList<Integer>) data.getQuality().clone();
+            double sum = 0;
+            for (int i = 0; i < q.size(); i++) {
+                sum += Math.abs(q.get(i) - avg);
+            }
             return n + sum;
         }       
         return 0.0;
