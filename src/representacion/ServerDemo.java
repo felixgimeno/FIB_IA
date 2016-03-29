@@ -29,7 +29,8 @@ public class ServerDemo {
 
             if (saORhc){
                 problem = new Problem(
-                    new ServerData(11, 5, 11432342, 10, 11, 11433411,criterioGeneracionEstadosIniciales),
+                               //ns, nrep, seed1, nu, nreq, seed2, criteria
+                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunction(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
@@ -37,7 +38,7 @@ public class ServerDemo {
                 search = new HillClimbingSearch();
             } else {
                 problem = new Problem(
-                    new ServerData(11, 5, 11432342, 10, 11, 11433411,criterioGeneracionEstadosIniciales),
+                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunctionR(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)

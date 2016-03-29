@@ -86,6 +86,13 @@ public class ServerData {
         quality.set(server2, +sdata.tranmissionTime(server2, rdata.getRequest(req)[0]) + quality.get(server2));
     }
 
+    public Boolean isPossibleSwap (int server1, int r1, int server2, int r2) {
+        return server1 != server2 &&
+                state.get(server1).contains(r1) && state.get(server2).contains(r2) &&
+                sdata.fileLocations(rdata.getRequest(r1)[1]).contains(server2) &&
+                sdata.fileLocations(rdata.getRequest(r2)[1]).contains(server1);
+    }
+
     public void swapRequest(int server1, int r1, int server2, int r2) {
         int i = state.get(server1).indexOf(r1);
         int j = state.get(server2).indexOf(r2);
