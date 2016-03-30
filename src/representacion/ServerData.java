@@ -56,7 +56,10 @@ public class ServerData {
         }
     }
     public ServerData(ServerData old) {
-        this.quality = old.quality;
+        this.quality = new ArrayList<>();
+         for (Integer i = 0; i < old.quality.size(); i +=1){
+             quality.add(old.quality.get(i));
+         }
         this.state = new ArrayList<>();
         this.state.ensureCapacity(sdata.size());
         for (Integer i = 0; i < old.state.size(); i +=1){
@@ -148,14 +151,15 @@ public class ServerData {
      * @return arraylist del tiempo total de transmision de cada servidor
      */
     public ArrayList<Integer> getQuality(){
-        // return quality;
-        
+        return quality;
+        /*
         ArrayList<Integer> here = new ArrayList<> ();
         for (Integer i = 0; i < this.nserv; i +=1){
             final Integer serverid = i;
             here.add(this.getRequests(serverid).stream().map((a) -> sdata.tranmissionTime(serverid, rdata.getRequest(a)[0])).reduce(0,(a,b)->a+b));
         }
         return here;
+                */
     }
     @Override
     public String toString(){
