@@ -11,7 +11,12 @@ import java.util.Objects;
  * Created by josep on 3/14/16.
  */
 public class ServerSuccessorFunction implements SuccessorFunction {
-
+    
+    int heuristic = 0;
+    public ServerSuccessorFunction(int heuristic){
+        this.heuristic = heuristic;
+    }
+    
     @Override
     public List getSuccessors(Object state) {
         ServerData data = (ServerData) state;
@@ -36,7 +41,6 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                 }
             }
         }
-        int heuristic = 1;
         double oldquality = new ServerHeuristicFunction(heuristic).getHeuristicValue(data);
         for (Integer i = 0; i < data.getNservers(); i += 1) {
             if (data.getRequests(i).isEmpty()) {
