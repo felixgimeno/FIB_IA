@@ -45,8 +45,13 @@ public class ServerDemo {
                 );               
                 search = new SimulatedAnnealingSearch();
             }
+
+            long begin = System.nanoTime();
  
             SearchAgent agent = new SearchAgent(problem, search);
+
+            long total = System.nanoTime() - begin;
+
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
             ServerData goal = (ServerData) search.getGoalState();
@@ -54,6 +59,11 @@ public class ServerDemo {
                 System.out.println(goal.getQuality());
                 System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));
             }
+            int min = (int)(total/1000000000)/60;
+            int sec = (int)(total/1000000000)%60;
+            System.out.println("Time: " + min + " min, " + sec + " s");
+            System.out.println("Total: " + total + " ms");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
