@@ -58,6 +58,8 @@ public class ServerDemo {
             if (goal != null){
                 System.out.println(goal.getQuality());
                 System.out.println(new ServerHeuristicFunction(heuristicCriteria).getHeuristicValue(goal));
+                double n = goal.getQuality().stream().mapToDouble((a)->a).reduce(0,(a,b)->a+b);
+                System.out.println("Sum of transmisison times: "+n);
             }
             int min = (int)(total/1000000000)/60;
             int sec = (int)(total/1000000000)%60;
