@@ -21,6 +21,7 @@ public class ServerDemo {
 
     public static void main(String[] args) {
         try {
+            System.out.println("Bienvenido");
             boolean saORhc = true;
             final Integer heuristicCriteria = 1;
             final int criterioGeneracionEstadosIniciales = 1; 
@@ -31,7 +32,7 @@ public class ServerDemo {
                 problem = new Problem(
                                //ns, nrep, seed1, nu, nreq, seed2, criteria
                     new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
-                    new ServerSuccessorFunction(),
+                    new ServerSuccessorFunction(heuristicCriteria),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
                 );
@@ -45,7 +46,7 @@ public class ServerDemo {
                 );               
                 search = new SimulatedAnnealingSearch();
             }
-
+            System.out.println("Procederemos a ejecutar la busqueda");
             long begin = System.nanoTime();
  
             SearchAgent agent = new SearchAgent(problem, search);
