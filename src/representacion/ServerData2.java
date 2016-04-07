@@ -9,7 +9,7 @@ public class ServerData2 extends ServerData {
     private final ArrayList<Integer> myState; // funcion requestid a serverid
 
     public ServerData2(int ns, int nr, int s1, int nu, int nrq, int s2, int j) {
-        super(ns, nr, s1, nu, nrq, s2, j);
+        super(ns, nr, s1, nu, nrq, s2, j, 0);
         myState = new ArrayList<>(super.getRdata().size());
     }
 
