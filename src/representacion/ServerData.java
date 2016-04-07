@@ -19,8 +19,9 @@ public class ServerData {
     private static Requests rdata;
     private ArrayList<ArrayList<Integer>> state;
     private ArrayList<Integer> quality;
-
-    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2, int tipoGenInicial) {
+    private static int randomSeed;
+    
+    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2, int tipoGenInicial, int randomSeed) {
         try {
             nserv = ns;
             nrep = nr;
@@ -36,6 +37,7 @@ public class ServerData {
                 state.add(new ArrayList<>() );
                 quality.add(i, 0);
             }
+            this.randomSeed = randomSeed;
             
             this.init(tipoGenInicial);
         } catch (Exception e) {
@@ -50,7 +52,7 @@ public class ServerData {
             if (tipoGenInicial != 1) {
                 ArrayList<Integer> ss = new ArrayList();
                 ss.addAll(s);
-                server_dest_id = ss.get(new Random().nextInt(ss.size()));
+                server_dest_id = ss.get(new Random(this.randomSeed).nextInt(ss.size()));
             }
             this.addRequest(server_dest_id,i);
         }
