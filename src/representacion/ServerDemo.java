@@ -1,6 +1,5 @@
 package representacion;
 
-import aima.search.framework.GraphSearch;
 import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
@@ -22,29 +21,35 @@ public class ServerDemo {
     public static void main(String[] args) {
         try {
             System.out.println("Bienvenido");
-            boolean saORhc = true;
-            final Integer heuristicCriteria = 1;
-            final int criterioGeneracionEstadosIniciales = 1; 
+            boolean saORhc = false;
+            final Integer heuristicCriteria = 1; //unicos valores 1 y 5
+            final int criterioGeneracionEstadosIniciales = 2; //fijo para siempre
+            final int randomSeed = 1; //seed de generacion inicial de asignaciones
             Problem problem;
             Search search;
 
             if (saORhc){
                 problem = new Problem(
                                //ns, nrep, seed1, nu, nreq, seed2, criteria
-                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
+                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales, randomSeed),
                     new ServerSuccessorFunction(heuristicCriteria),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
                 );
                 search = new HillClimbingSearch();
             } else {
+                final int saSeed = 2; //seed para el random de SA
                 problem = new Problem(
-                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
-                    new ServerSuccessorFunctionR(),
+                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales, randomSeed),
+                    new ServerSuccessorFunctionR(saSeed),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
-                );               
-                search = new SimulatedAnnealingSearch();
+                );
+                int steps = 100000;
+                int stiter = 100;
+                int k = 20;
+                double lamb =  0.005;
+                search = new SimulatedAnnealingSearch(steps, stiter, k, lamb);
             }
             System.out.println("Procederemos a ejecutar la busqueda");
             long begin = System.nanoTime();
@@ -65,7 +70,7 @@ public class ServerDemo {
             int min = (int)(total/1000000000)/60;
             int sec = (int)(total/1000000000)%60;
             System.out.println("Time: " + min + " min, " + sec + " s");
-            System.out.println("Total: " + total + " ms");
+            System.out.println("Total: " + total/1000000 + " ms");
 
         } catch (Exception e) {
             e.printStackTrace();
