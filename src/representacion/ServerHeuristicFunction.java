@@ -18,6 +18,7 @@ public class ServerHeuristicFunction implements HeuristicFunction {
         ServerData data = (ServerData) state;
         
         if (1 == selection) {
+            //Criterio 1
             //Valor del estado: tiempo maximo
             /*long _max = 0;
             long counter = 0;
@@ -52,6 +53,7 @@ public class ServerHeuristicFunction implements HeuristicFunction {
             return (double)data.getQuality().stream().map((a)->a*a).reduce(0,(a,b)->a+b) - avg*avg*data.getNservers();
         }
         if (5 == selection) {
+            //Criterio 2
             //Valor del estado: tiempo maximo mas el sumatorio de las diferencias de tiempos de servidor respecto a la media
             double n = (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
             ArrayList<Integer> q = (ArrayList<Integer>) data.getQuality().clone();
