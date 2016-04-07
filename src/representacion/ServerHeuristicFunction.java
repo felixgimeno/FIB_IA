@@ -19,14 +19,14 @@ public class ServerHeuristicFunction implements HeuristicFunction {
         
         if (1 == selection) {
             //Valor del estado: tiempo maximo
-            long _max = 0;
+            /*long _max = 0;
             long counter = 0;
             for (Integer i : data.getQuality()){
                 if (_max < i){counter = 1; _max = i;}
                 else if (_max == i) {counter += 1;}
             }
-            return (double)_max+0.1*counter;
-            //return (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
+            return (double)_max+0.1*counter;*/
+            return (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
         }
         if (2 == selection) {
             //Valor del estado: sumatorio de tiempos al cuadrado

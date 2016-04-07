@@ -24,14 +24,14 @@ public class ServerDemo {
             System.out.println("Bienvenido");
             boolean saORhc = true;
             final Integer heuristicCriteria = 1;
-            final int criterioGeneracionEstadosIniciales = 1; 
+            final int criterioGeneracionEstadosIniciales = 2;
             Problem problem;
             Search search;
 
             if (saORhc){
                 problem = new Problem(
-                               //ns, nrep, seed1, nu, nreq, seed2, criteria
-                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
+                               //ns, nrep, seed1, nu, nreq, seed2, algseed, criteria
+                    new ServerData(50, 5, 1234, 200, 5, 1234, 0, criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunction(heuristicCriteria),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
@@ -39,7 +39,7 @@ public class ServerDemo {
                 search = new HillClimbingSearch();
             } else {
                 problem = new Problem(
-                    new ServerData(50, 5, 1234, 200, 5, 1234,criterioGeneracionEstadosIniciales),
+                    new ServerData(50, 5, 1234, 200, 5, 1234, 0, criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunctionR(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
@@ -65,7 +65,7 @@ public class ServerDemo {
             int min = (int)(total/1000000000)/60;
             int sec = (int)(total/1000000000)%60;
             System.out.println("Time: " + min + " min, " + sec + " s");
-            System.out.println("Total: " + total + " ms");
+            System.out.println("Total: " + total/1000000 + " ms");
 
         } catch (Exception e) {
             e.printStackTrace();

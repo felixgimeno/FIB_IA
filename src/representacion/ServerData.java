@@ -15,12 +15,13 @@ public class ServerData {
     private static int nusers;
     private static int nreq;
     private static int rseed;
+    private static int algseed;
     private static Servers sdata;
     private static Requests rdata;
     private ArrayList<ArrayList<Integer>> state;
     private ArrayList<Integer> quality;
 
-    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2, int tipoGenInicial) {
+    public ServerData(int ns, int nr, int s1, int nu, int nrq, int s2,int aseed, int tipoGenInicial) {
         try {
             nserv = ns;
             nrep = nr;
@@ -28,6 +29,7 @@ public class ServerData {
             nusers = nu;
             nreq = nrq;
             rseed = s2;
+            algseed = aseed;
             sdata = new Servers(ns, nr, s1);
             rdata = new Requests(nu, nrq, s2);
             state = new ArrayList<>();
@@ -50,7 +52,7 @@ public class ServerData {
             if (tipoGenInicial != 1) {
                 ArrayList<Integer> ss = new ArrayList();
                 ss.addAll(s);
-                server_dest_id = ss.get(new Random().nextInt(ss.size()));
+                server_dest_id = ss.get(new Random(algseed).nextInt(ss.size()));
             }
             this.addRequest(server_dest_id,i);
         }
@@ -134,6 +136,8 @@ public class ServerData {
         return rseed;
     }
 
+    public int getAlgseed() { return algseed; }
+
     public Servers getSdata() {
         return sdata;
     }
@@ -152,14 +156,6 @@ public class ServerData {
      */
     public ArrayList<Integer> getQuality(){
         return quality;
-        /*
-        ArrayList<Integer> here = new ArrayList<> ();
-        for (Integer i = 0; i < this.nserv; i +=1){
-            final Integer serverid = i;
-            here.add(this.getRequests(serverid).stream().map((a) -> sdata.tranmissionTime(serverid, rdata.getRequest(a)[0])).reduce(0,(a,b)->a+b));
-        }
-        return here;
-                */
     }
     @Override
     public String toString(){
