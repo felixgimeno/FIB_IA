@@ -10,13 +10,13 @@ public class ServerSuccessorFunctionR implements SuccessorFunction {
         final ServerData data = (ServerData) state;
         List<Successor> list = new ArrayList<> ();
         for (int count = 0; count < 100; count += 1){
-            int i = new Random().nextInt(data.getNservers());
-            if (data.getRequests(i).isEmpty()) continue;
+            final int i = new Random().nextInt(data.getNservers());
             final int j = new Random().nextInt(data.getNservers());
-            
+            if (data.getRequests(i).isEmpty() || data.getRequests(j).isEmpty() ) continue;
+
             final int k1 = data.getRequests(i).get(new Random().nextInt(data.getRequests(i).size()));
             final ServerData dataNew = new ServerData(data);
-            final boolean swapSelected = 1 == new Random().nextInt(1+data.getNreq());
+            final boolean swapSelected = 0 == new Random().nextInt(1+data.getNreq());
             
             if (swapSelected){
                 final int k2 = data.getRequests(j).get(new Random().nextInt(data.getRequests(j).size()));
@@ -36,7 +36,7 @@ public class ServerSuccessorFunctionR implements SuccessorFunction {
             //sap far es numberServers^2 * numberRequests^2w
             // swap far / move far = numberRequests
         }
-        assert(!list.isEmpty());
+        //assert(!list.isEmpty());
         //System.out.println(list);
         return list;
     }
