@@ -45,14 +45,24 @@ public class ServerData {
         }
     }
     private void init(int tipoGenInicial){
-        for (int i = 0; i < rdata.size();  i+=1){
+        int server_dest_id = 0;
+        for (int i = 0; i < rdata.size();  i+=1) {
             final int fileid = rdata.getRequest(i)[1];
             final Set<Integer> s = sdata.fileLocations(fileid);
-            int server_dest_id = s.iterator().next();
-            if (tipoGenInicial != 1) {
-                ArrayList<Integer> ss = new ArrayList();
-                ss.addAll(s);
-                server_dest_id = ss.get(new Random(algseed).nextInt(ss.size()));
+            if(tipoGenInicial == 2) {
+                while(!s.contains(server_dest_id)) {
+                    //volver al inicio si se llega al final del conjunto de servidores
+                    server_dest_id++;
+                    if(server_dest_id >= this.getNservers()) server_dest_id = 0;
+                }
+            }
+            else {
+                server_dest_id = s.iterator().next();
+                if(tipoGenInicial != 1) {
+                    ArrayList<Integer> ss = new ArrayList();
+                    ss.addAll(s);
+                    server_dest_id = ss.get(new Random(algseed).nextInt(ss.size()));
+                }
             }
             this.addRequest(server_dest_id,i);
         }

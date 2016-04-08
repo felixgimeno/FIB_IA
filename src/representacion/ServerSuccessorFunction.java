@@ -11,7 +11,7 @@ import java.util.Objects;
  * Created by josep on 3/14/16.
  */
 public class ServerSuccessorFunction implements SuccessorFunction {
-    
+
     int heuristic = 0;
     public ServerSuccessorFunction(int heuristic){
         this.heuristic = heuristic;

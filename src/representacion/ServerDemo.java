@@ -24,14 +24,16 @@ public class ServerDemo {
             System.out.println("Bienvenido");
             boolean saORhc = true;
             final Integer heuristicCriteria = 1;
+            //Criterios generacion: 1 - fijo, 2 - iterativo, Otro - random
             final int criterioGeneracionEstadosIniciales = 2;
+            final int algseed = 29;
             Problem problem;
             Search search;
 
             if (saORhc){
                 problem = new Problem(
                                //ns, nrep, seed1, nu, nreq, seed2, algseed, criteria
-                    new ServerData(50, 5, 1234, 200, 5, 1234, 0, criterioGeneracionEstadosIniciales),
+                    new ServerData(50, 5, 1234, 200, 5, 1234, algseed, criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunction(heuristicCriteria),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
@@ -39,7 +41,7 @@ public class ServerDemo {
                 search = new HillClimbingSearch();
             } else {
                 problem = new Problem(
-                    new ServerData(50, 5, 1234, 200, 5, 1234, 0, criterioGeneracionEstadosIniciales),
+                    new ServerData(50, 5, 1234, 200, 5, 1234, algseed, criterioGeneracionEstadosIniciales),
                     new ServerSuccessorFunctionR(),
                     new ServerGoalTest(),
                     new ServerHeuristicFunction(heuristicCriteria)
