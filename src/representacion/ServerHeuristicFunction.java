@@ -18,41 +18,13 @@ public class ServerHeuristicFunction implements HeuristicFunction {
         ServerData data = (ServerData) state;
         
         if (1 == selection) {
-            //Valor del estado: tiempo maximo
-            /*long _max = 0;
-            long counter = 0;
-            for (Integer i : data.getQuality()){
-                if (_max < i){counter = 1; _max = i;}
-                else if (_max == i) {counter += 1;}
-            }
-            return (double)_max+0.1*counter;*/
+            //t.max servers mínimo
             return (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
         }
         if (2 == selection) {
-            //Valor del estado: sumatorio de tiempos al cuadrado
-            double n = data.getQuality().stream().mapToDouble((a)->a*a).reduce(0,(a,b)->a+b);
-            if (n < 0) {
-                n = Double.MAX_VALUE;
-            }
-            return (double)n;
-        }
-
-
-        double avg = (double)data.getQuality().stream().mapToDouble((a)->a).average().getAsDouble();
-
-
-        if (3 == selection) {
-            //Valor del estado: la diferencia entre el tiempo maximo y la media de los tiempos
-            return (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get() - avg;
-        }
-        if (4 == selection) {
-            /*Valor del estado: sumatorio del tiempos al cuadrado menos
-             * el cuadrado de la media multiplicado por el numero de servidores
-             */
-            return (double)data.getQuality().stream().map((a)->a*a).reduce(0,(a,b)->a+b) - avg*avg*data.getNservers();
-        }
-        if (5 == selection) {
-            //Valor del estado: tiempo maximo mas el sumatorio de las diferencias de tiempos de servidor respecto a la media
+            //Valor del estado: t.max servers mínimo mas el sumatorio de
+            //las diferencias de tiempos de servidor respecto a la media
+            double avg = (double)data.getQuality().stream().mapToDouble((a)->a).average().getAsDouble();
             double n = (double)data.getQuality().stream().max((a,b)-> Integer.compare(a,b)).get();
             ArrayList<Integer> q = (ArrayList<Integer>) data.getQuality().clone();
             double sum = 0;
@@ -60,7 +32,7 @@ public class ServerHeuristicFunction implements HeuristicFunction {
                 sum += Math.abs(q.get(i) - avg);
             }
             return n + sum;
-        }       
+        }
         return 0.0;
     }
 }

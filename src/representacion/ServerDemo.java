@@ -23,10 +23,11 @@ public class ServerDemo {
         try {
             System.out.println("Bienvenido");
             boolean saORhc = true;
-            final Integer heuristicCriteria = 1;
+            //Heuristicas: 1 - t.max servidor mínimo, 2 - t.max servidor mínimo & balanceo de carga
+            final Integer heuristicCriteria = 2;
             //Criterios generacion: 1 - fijo, 2 - iterativo, Otro - random
             final int criterioGeneracionEstadosIniciales = 2;
-            final int algseed = 29;
+            final int algseed = 22;
             Problem problem;
             Search search;
 
