@@ -38,16 +38,19 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                         }
                         dataNew = new ServerData(data);
                         dataNew.moveRequest(i, j, k);
+                        if (list.isEmpty()) {
+                            list.add(new Successor(String.format("move s1 %d s2 %d req %d", i, j, k), dataNew));
+                        }
                         double newquality = new ServerHeuristicFunction(heuristic).getHeuristicValue(dataNew);
-                        if (newquality < oldquality) {
+                        if (newquality <= oldquality) {
                             oldquality = newquality;
                             best = new Successor(String.format("move s1 %d s2 %d req %d", i, j, k), dataNew);
+                            list.add(best);
                         }
                     }
                 }
             }
         }
-        list.add(best);
         for (Integer i = 0; i < data.getNservers(); i += 1) {
             if (data.getRequests(i).isEmpty()) {
                 continue;
@@ -60,10 +63,13 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                                 dataNew = new ServerData(data);
                                 dataNew.swapRequest(i, k, j, l);
                                 double newquality = new ServerHeuristicFunction(heuristic).getHeuristicValue(dataNew);
-                                if (newquality < oldquality) {
+                                if (list.isEmpty()) {
+                                    list.add(new Successor(String.format("swap s1 %d req1 %d s2 %d req2 %d", i, k, j, l), dataNew));
+                                }
+                                if (newquality <= oldquality) {
                                     oldquality = newquality;
                                     best = new Successor(String.format("swap s1 %d req1 %d s2 %d req2 %d", i, k, j, l), dataNew);
-
+                                    list.add(best);
                                 }
                             }
                         }
