@@ -77,7 +77,8 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                 }
             }
         }
-        list.add(best);
+        if (null != best) list.add(best);
+        if (list.isEmpty()) return null;
         assert (!list.isEmpty());
         //System.out.println(list);
         return list;
