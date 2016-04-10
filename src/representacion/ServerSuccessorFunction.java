@@ -13,14 +13,16 @@ import java.util.Objects;
 public class ServerSuccessorFunction implements SuccessorFunction {
 
     int heuristic = 0;
-    public ServerSuccessorFunction(int heuristic){
+
+    public ServerSuccessorFunction(int heuristic) {
         this.heuristic = heuristic;
     }
-    
+
     @Override
     public List getSuccessors(Object state) {
         ServerData data = (ServerData) state;
         ServerData dataNew;
+        Successor best = null;
         List<Successor> list = new ArrayList<>();
         double oldquality = new ServerHeuristicFunction(heuristic).getHeuristicValue(data);
         for (Integer i = 0; i < data.getNservers(); i += 1) {
@@ -36,14 +38,16 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                         }
                         dataNew = new ServerData(data);
                         dataNew.moveRequest(i, j, k);
-                        double newquality =  new ServerHeuristicFunction(heuristic).getHeuristicValue(dataNew);
+                        double newquality = new ServerHeuristicFunction(heuristic).getHeuristicValue(dataNew);
                         if (newquality < oldquality) {
-                            list.add(new Successor(String.format("move s1 %d s2 %d req %d", i, j, k), dataNew));
-                        }    
+                            oldquality = newquality;
+                            best = new Successor(String.format("move s1 %d s2 %d req %d", i, j, k), dataNew);
+                        }
                     }
                 }
             }
         }
+        list.add(best);
         for (Integer i = 0; i < data.getNservers(); i += 1) {
             if (data.getRequests(i).isEmpty()) {
                 continue;
@@ -55,9 +59,11 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                             if (data.isPossibleSwap(i, k, j, l)) {
                                 dataNew = new ServerData(data);
                                 dataNew.swapRequest(i, k, j, l);
-                                double newquality =  new ServerHeuristicFunction(heuristic).getHeuristicValue(dataNew);
+                                double newquality = new ServerHeuristicFunction(heuristic).getHeuristicValue(dataNew);
                                 if (newquality < oldquality) {
-                                    list.add(new Successor(String.format("swap s1 %d req1 %d s2 %d req2 %d", i, k, j, l), dataNew));
+                                    oldquality = newquality;
+                                    best = new Successor(String.format("swap s1 %d req1 %d s2 %d req2 %d", i, k, j, l), dataNew);
+
                                 }
                             }
                         }
@@ -65,6 +71,7 @@ public class ServerSuccessorFunction implements SuccessorFunction {
                 }
             }
         }
+        list.add(best);
         assert (!list.isEmpty());
         //System.out.println(list);
         return list;
